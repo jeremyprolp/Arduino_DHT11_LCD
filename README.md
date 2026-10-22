@@ -15,7 +15,7 @@ Hum:  45.0 %
 | DHT11 sensor      | Data pin to **D2**, plus 5V and GND         |
 | 16x2 LCD (I2C)    | SDA and SCL to the board's I2C pins, plus 5V and GND |
 
-The LCD is expected at I2C address `0x27`. Some modules use `0x3F`. If the screen stays blank, change `kLcdAddress` in `src/main.cpp`.
+The LCD is expected at I2C address `0x27`. Some modules use `0x3F`. If the screen stays blank, change `kLcdAddress` in `src/display.cpp`.
 
 ## Software
 
@@ -42,14 +42,17 @@ Or use the PlatformIO buttons in VS Code.
 
 - The sensor is read every 2 seconds (the DHT11 minimum).
 - Temperature and humidity are shown with one decimal place.
-- If a read fails, the LCD shows `Sensor error / Check wiring` and a message is printed to the serial monitor.
+- `Starting...` is shown until the first reading arrives.
+- Each failed read prints a message to the serial monitor. After 3 failures in a row, the LCD shows `Sensor error / Check wiring`; until then it keeps the last good values.
 
 ## Project layout
 
 ```
-src/main.cpp        Application code
+src/main.cpp        setup() / loop(): read timing and error handling
+src/sensor.cpp      DHT11 reading           (interface: include/sensor.h)
+src/display.cpp     LCD output and formatting (interface: include/display.h)
 platformio.ini      Board and library configuration
-include/, lib/      Project headers and private libraries (unused)
+lib/                Private libraries (unused)
 test/               Unit tests (unused)
 ```
 

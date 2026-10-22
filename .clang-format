@@ -1,0 +1,10 @@
+BasedOnStyle: Google
+BreakBeforeBraces: Allman
+PointerAlignment: Right
+DerivePointerAlignment: false
+ColumnLimit: 100
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortBlocksOnASingleLine: Never
+IncludeBlocks: Preserve
